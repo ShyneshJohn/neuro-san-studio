@@ -1,5 +1,59 @@
 <!-- pyml disable-next-line first-line-heading -->
 <!-- Badges -->
+# SentinelFlow AI — Multi-Agent Cybersecurity SOC Assistant
+
+**Hackathon project built with Neuro SAN Studio**
+
+SentinelFlow AI is a defensive AI prototype that coordinates specialized agents to analyze supplied security alerts, investigate available evidence, assess potential threats, and recommend response actions for human review.
+
+## Project Goals
+
+- **Alert triage:** Prioritize alerts using the evidence provided.
+- **Investigation:** Examine available alert context and identify missing information.
+- **Threat analysis:** Explain potential threats while distinguishing evidence from hypotheses.
+- **Response recommendations:** Suggest defensive next steps with human oversight.
+- **Multi-agent coordination:** Use a central coordinator to manage specialist agents.
+
+## Agent Architecture
+
+| Agent | Responsibility |
+|---|---|
+| `soc_coordinator` | Coordinates the analysis workflow |
+| `triage_agent` | Reviews and prioritizes supplied alerts |
+| `investigation_agent` | Examines the supplied context and evidence |
+| `threat_analysis_agent` | Assesses potential threats and uncertainty |
+| `response_agent` | Recommends defensive actions for human review |
+
+**Configured model:** Mistral `ministral-3b-2512`
+
+**Agent configuration:** [`registries/generated/sentinel_flow_ai.hocon`](registries/generated/sentinel_flow_ai.hocon)
+
+## Demo Scenario
+
+Use a synthetic alert such as:
+
+> Multiple failed login attempts were reported for a test account. No source IP, exact event count, or additional logs are supplied. Analyze only the available evidence, state what remains unknown, and recommend safe investigation steps.
+
+The prototype must not invent evidence or claim that response actions were executed. Human approval is required before operational containment.
+
+## Validate and Run
+
+Activate the project's existing virtual environment:
+
+```bash
+source venv/bin/activate
+ns check-config
+ns validate registries/generated/sentinel_flow_ai.hocon
+ns run
+```
+
+Open the Studio interface using the address reported by the application. In the current development setup, the frontend commonly uses port `4173` and the backend port `8080`.
+
+**Security:** Use synthetic or authorized data. Keep API keys in environment secrets and never commit them to Git.
+
+---
+
+
 <!-- pyml disable-next-line no-inline-html -->
 <p align="center">
   <!-- GitHub Stats -->
